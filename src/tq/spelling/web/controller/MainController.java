@@ -5,6 +5,7 @@ import tq.spelling.web.controller.view.View;
 import tq.spelling.web.controller.webcontroller.WebController;
 import tq.spelling.web.controller.webcontroller.WebControllerFactory;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -13,10 +14,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.servlet.annotation.WebServlet(name = "MainController", urlPatterns = "/do/MainController")
+@javax.servlet.annotation.WebServlet(name = "MainController", urlPatterns = "/")
 public class MainController extends javax.servlet.http.HttpServlet {
 
-    public static final String SESSION_NAVIGATION = "navigation";
+    private static final String SESSION_NAVIGATION = "navigation";
 
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         doProcess(request, response);
@@ -26,7 +27,7 @@ public class MainController extends javax.servlet.http.HttpServlet {
         doProcess(request, response);
     }
 
-    private void doProcess(HttpServletRequest request, HttpServletResponse response) {
+    private void doProcess(HttpServletRequest request, HttpServletResponse response) throws javax.servlet.ServletException, IOException {
 
         request.setAttribute("title", "TQ");
 
@@ -39,8 +40,7 @@ public class MainController extends javax.servlet.http.HttpServlet {
             request.getSession().setAttribute(SESSION_NAVIGATION, controllerContext);
         }
 
-        ControllerManager controllerManager = new ControllerManager(actionTxt, parameters, controllerContext);
-        List<WebController> controllers = controllerManager.getControllers();
+        List<WebController> controllers = controllerContext.getControllers();
         List<ModelView> modelViews = new ArrayList<>();
         for (WebController webController : controllers) {
             ModelView modelView = new ModelView();
@@ -48,11 +48,14 @@ public class MainController extends javax.servlet.http.HttpServlet {
             modelViews.add(modelView);
         }
         putParameterFromModelViewToRequest(modelViews, request);
+
+        request.getRequestDispatcher("/main.jsp").forward(request, response);
+
     }
 
     private ControllerContext createControllerContext() {
         ControllerContext controllerContext = new ControllerContext();
-        WebControllerFactory.getControllers().stream().forEach( controllerContext::addWebController );
+        WebControllerFactory.getControllers().forEach(controllerContext::addWebController);
         return controllerContext;
     }
 
@@ -63,7 +66,7 @@ public class MainController extends javax.servlet.http.HttpServlet {
                 request.setAttribute(key, params.get(key));
             }
             View view = modelView.getView();
-            if( view != null ) {
+            if (view != null) {
                 request.setAttribute(view.getIncludeName(), view.getName());
             }
         }

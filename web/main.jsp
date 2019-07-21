@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<jsp:include page="/do/MainController"/>
 <!doctype html>
 <html>
 <head>
@@ -17,19 +16,19 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-    <link href="main.css">
+    <link href="css/main.css">
     <title>Spelling App</title>
 </head>
 <body>
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12 col-sm-12 blue d-flex justify-content-center align-items-center">
-            <jsp:include page="${requestScope.get('header')}"></jsp:include>
+            <jsp:include page="${requestScope.get('header')}"/>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-12 col-sm-12 blue d-flex justify-content-center align-items-center">
-            <jsp:include page="${requestScope.get('menu')}"></jsp:include>
+            <jsp:include page="${requestScope.get('menu')}"/>
         </div>
     </div>
     <div class="row">
@@ -42,7 +41,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12 col-sm-12 lightblue d-flex justify-content-center align-items-center">
-            <jsp:include page="${requestScope.get('footer')}"></jsp:include>
+            <jsp:include page="${requestScope.get('footer')}"/>
         </div>
     </div>
 </div>

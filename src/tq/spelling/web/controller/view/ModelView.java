@@ -3,17 +3,14 @@ package tq.spelling.web.controller.view;
 import java.util.HashMap;
 
 public class ModelView {
-    private HashMap<String, Object> model;
+    private HashMap<String, Object> model = new HashMap<>();
     private View view;
 
     public HashMap<String, Object> getModel() {
-        return getModel();
+        return model;
     }
 
     public void addModel(String key, Object object) {
-        if (model == null) {
-            model = new HashMap<>();
-        }
         model.put(key, object);
     }
 
