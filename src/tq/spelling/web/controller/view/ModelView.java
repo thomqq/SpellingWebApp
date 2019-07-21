@@ -1,4 +1,4 @@
-package tq.spelling.web.controller;
+package tq.spelling.web.controller.view;
 
 import java.util.HashMap;
 

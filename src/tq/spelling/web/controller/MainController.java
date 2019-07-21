@@ -1,6 +1,10 @@
 package tq.spelling.web.controller;
 
-import javax.servlet.ServletException;
+import tq.spelling.web.controller.view.ModelView;
+import tq.spelling.web.controller.view.View;
+import tq.spelling.web.controller.webcontroller.WebController;
+import tq.spelling.web.controller.webcontroller.WebControllerFactory;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -9,8 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.servlet.annotation.WebServlet(name = "FrontController", urlPatterns = "/FrontController")
-public class FronController extends javax.servlet.http.HttpServlet {
+@javax.servlet.annotation.WebServlet(name = "MainController", urlPatterns = "/do/MainController")
+public class MainController extends javax.servlet.http.HttpServlet {
 
     public static final String SESSION_NAVIGATION = "navigation";
 
@@ -31,7 +35,7 @@ public class FronController extends javax.servlet.http.HttpServlet {
         Map<String, String[]> parameters = request.getParameterMap();
         ControllerContext controllerContext = (ControllerContext) request.getSession().getAttribute(SESSION_NAVIGATION);
         if (controllerContext == null) {
-            controllerContext = new ControllerContext();
+            controllerContext = createControllerContext();
             request.getSession().setAttribute(SESSION_NAVIGATION, controllerContext);
         }
 
@@ -46,13 +50,24 @@ public class FronController extends javax.servlet.http.HttpServlet {
         putParameterFromModelViewToRequest(modelViews, request);
     }
 
+    private ControllerContext createControllerContext() {
+        ControllerContext controllerContext = new ControllerContext();
+        WebControllerFactory.getControllers().stream().forEach( controllerContext::addWebController );
+        return controllerContext;
+    }
+
     private void putParameterFromModelViewToRequest(List<ModelView> modelViews, HttpServletRequest request) {
         for (ModelView modelView : modelViews) {
             HashMap<String, Object> params = modelView.getModel();
             for (String key : params.keySet()) {
                 request.setAttribute(key, params.get(key));
             }
+            View view = modelView.getView();
+            if( view != null ) {
+                request.setAttribute(view.getIncludeName(), view.getName());
+            }
         }
+
     }
 
 
