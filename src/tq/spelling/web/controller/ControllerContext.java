@@ -8,8 +8,10 @@ import java.util.List;
 
 public class ControllerContext {
     private List<WebController> controllers = new ArrayList<>();
+    HashMap<String, Object> sessionParameters = new HashMap<>();
+
     public HashMap<String, Object> getSessionParameters() {
-        return null;
+        return sessionParameters;
     }
 
     public List<WebController> getControllers() {

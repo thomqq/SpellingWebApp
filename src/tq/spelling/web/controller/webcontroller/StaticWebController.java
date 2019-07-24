@@ -9,17 +9,21 @@ import java.util.Map;
 public class StaticWebController implements WebController {
 
     private final String jspPageName;
+    private final String pageIncludeName;
 
     public static StaticWebController fromJspPageName(String jspPageName ) {
-        return new StaticWebController(jspPageName);
+        return new StaticWebController(jspPageName, jspPageName);
     }
-
-    private StaticWebController(String jspPageName) {
+    public static StaticWebController fromPageAndNameIclude(String pageIncludeName, String jspPageName ) {
+        return new StaticWebController(jspPageName, pageIncludeName);
+    }
+     private StaticWebController(String jspPageName, String pageIncludeName) {
         this.jspPageName = jspPageName;
-    }
+         this.pageIncludeName = pageIncludeName;
+     }
 
     @Override
     public void process(Map<String, String[]> parameters, HashMap<String, Object> sessionParameters, ModelView modelView) {
-        modelView.setView(new View(jspPageName, "/" + jspPageName +".jsp"));
+        modelView.setView(new View(pageIncludeName, "/" + jspPageName +".jsp"));
     }
 }

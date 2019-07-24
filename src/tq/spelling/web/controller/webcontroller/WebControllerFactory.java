@@ -9,6 +9,8 @@ public class WebControllerFactory {
         controllers.add(new MenuWebController());
         controllers.add(StaticWebController.fromJspPageName("header"));
         controllers.add(StaticWebController.fromJspPageName("footer"));
+        controllers.add(StaticWebController.fromPageAndNameIclude("sidebar", "empty"));
+        controllers.add(new ContentWebController());
         return controllers;
     }
 }

@@ -31,12 +31,11 @@
             <jsp:include page="${requestScope.get('menu')}"/>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-8 col-sm-12 yellow d-flex justify-content-center align-items-center">
-            <p>Content</p>
+        <div class="col-lg-3 col-sm-12 orange d-flex justify-content-center align-items-center">
+            <jsp:include page="${requestScope.get('sidebar')}"/>
         </div>
-        <div class="col-lg-4 col-sm-12 orange d-flex justify-content-center align-items-center">
-            <p>Sidebar</p>
+        <div class="col-lg-9 col-sm-12 yellow d-flex justify-content-center align-items-center">
+            <jsp:include page="${requestScope.get('content')}"/>
         </div>
     </div>
     <div class="row">
