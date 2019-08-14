@@ -9,6 +9,8 @@ import java.util.Map;
 
 public class ContentWebController implements WebController {
 
+    private String login;
+    private String password;
 
     @Override
     public void process(Map<String, String[]> parameters, HashMap<String, Object> sessionParameters, ModelView modelView) {
@@ -18,18 +20,30 @@ public class ContentWebController implements WebController {
             if (containParameterLoginDatas(parameters)) {
                 user = createUser();
                 modelView.setView( new View("content", "/content.jsp"));
+                sessionParameters.put("user", user);
             } else {
                 modelView.setView( new View("content", "/login.jsp"));
             }
+        } else {
+            modelView.setView( new View("content", "/content.jsp"));
         }
 
     }
 
     private boolean containParameterLoginDatas(Map<String, String[]> parameters) {
-        return false;
+        login = getParameter("login",parameters);
+        password = getParameter("password",parameters);
+        return login != null && password != null ;
+    }
+
+    private String getParameter(String name, Map<String, String[]> parameters) {
+        if( parameters.containsKey(name) && parameters.get(name).length > 0) {
+            return parameters.get(name)[0];
+        }
+        return null;
     }
 
     private pl.tq.spelling.service.user.User createUser() {
-        return null;
+        return new User(1);
     }
 }
