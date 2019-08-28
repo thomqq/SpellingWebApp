@@ -1,10 +1,10 @@
 package tq.spelling.web.controller.webcontroller;
 
 import pl.tq.spelling.service.user.User;
+import tq.spelling.web.controller.session.AppSession;
 import tq.spelling.web.controller.view.ModelView;
 import tq.spelling.web.controller.view.View;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class ContentWebController implements WebController {
@@ -13,14 +13,14 @@ public class ContentWebController implements WebController {
     private String password;
 
     @Override
-    public void process(Map<String, String[]> parameters, HashMap<String, Object> sessionParameters, ModelView modelView) {
-        User user = (User) sessionParameters.get("user");
+    public void process(String action, Map<String, String[]> parameters, AppSession appSession, ModelView modelView) {
+        User user = (User) appSession.get("user");
 
         if( user == null ) {
-            if (containParameterLoginDatas(parameters)) {
+            if (containParameterLoginData(parameters)) {
                 user = createUser();
                 modelView.setView( new View("content", "/content.jsp"));
-                sessionParameters.put("user", user);
+                appSession.put("user", user);
             } else {
                 modelView.setView( new View("content", "/login.jsp"));
             }
@@ -30,7 +30,7 @@ public class ContentWebController implements WebController {
 
     }
 
-    private boolean containParameterLoginDatas(Map<String, String[]> parameters) {
+    private boolean containParameterLoginData(Map<String, String[]> parameters) {
         login = getParameter("login",parameters);
         password = getParameter("password",parameters);
         return login != null && password != null ;

@@ -1,9 +1,9 @@
 package tq.spelling.web.controller.webcontroller;
 
+import tq.spelling.web.controller.session.AppSession;
 import tq.spelling.web.controller.view.ModelView;
 import tq.spelling.web.controller.view.View;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class StaticWebController implements WebController {
@@ -23,7 +23,7 @@ public class StaticWebController implements WebController {
      }
 
     @Override
-    public void process(Map<String, String[]> parameters, HashMap<String, Object> sessionParameters, ModelView modelView) {
+    public void process(String action, Map<String, String[]> parameters, AppSession appSession, ModelView modelView) {
         modelView.setView(new View(pageIncludeName, "/" + jspPageName +".jsp"));
     }
 }

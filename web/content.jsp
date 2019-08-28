@@ -6,4 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-Content
+<form action="simple.act">
+    <input type="text" name="sentence"/>
+    <button type="submit" >OK</button>
+</form>

@@ -5,7 +5,6 @@ import tq.spelling.web.controller.view.View;
 import tq.spelling.web.controller.webcontroller.WebController;
 import tq.spelling.web.controller.webcontroller.WebControllerFactory;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -14,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.servlet.annotation.WebServlet(name = "MainController", urlPatterns = "/index.jsp")
+@javax.servlet.annotation.WebServlet(name = "MainController", urlPatterns = {"/index.jsp", "*.act"})
 public class MainController extends javax.servlet.http.HttpServlet {
 
     private static final String SESSION_NAVIGATION = "navigation";
@@ -44,7 +43,8 @@ public class MainController extends javax.servlet.http.HttpServlet {
         List<ModelView> modelViews = new ArrayList<>();
         for (WebController webController : controllers) {
             ModelView modelView = new ModelView();
-            webController.process(parameters, controllerContext.getSessionParameters(), modelView);
+            String action = PathUtil.prepareActionName(request.getServletPath());
+            webController.process(action, parameters, controllerContext.getAppSession(), modelView);
             modelViews.add(modelView);
         }
         putParameterFromModelViewToRequest(modelViews, request);
@@ -52,6 +52,7 @@ public class MainController extends javax.servlet.http.HttpServlet {
         request.getRequestDispatcher("/main.jsp").forward(request, response);
 
     }
+
 
     private ControllerContext createControllerContext() {
         ControllerContext controllerContext = new ControllerContext();
