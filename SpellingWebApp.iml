@@ -37,7 +37,6 @@
     <orderEntry type="library" name="popper" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="SpellingApp" level="project" />
-    <orderEntry type="library" name="ApiLimiter_jar" level="project" />
     <orderEntry type="module-library" scope="TEST">
       <library name="JUnit4">
         <CLASSES>
