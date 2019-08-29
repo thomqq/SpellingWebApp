@@ -1,6 +1,7 @@
 package tq.spelling.web.controller.webcontroller;
 
 import pl.tq.spelling.service.user.User;
+import tq.spelling.web.adapters.PollyAdapter;
 import tq.spelling.web.controller.session.AppSession;
 import tq.spelling.web.controller.view.ModelView;
 import tq.spelling.web.controller.view.View;
@@ -25,6 +26,13 @@ public class ContentWebController implements WebController {
                 modelView.setView( new View("content", "/login.jsp"));
             }
         } else {
+            if( action == "simple") {
+                String sentence[] = parameters.get("sentence");
+                if( sentence != null && sentence.length > 0 ) {
+                    String pathToMp3 = PollyAdapter.getMp3ForSentence(sentence[0]);
+                    parameters.put("mp3Path", new String[] {pathToMp3});
+                }
+            }
             modelView.setView( new View("content", "/content.jsp"));
         }
 

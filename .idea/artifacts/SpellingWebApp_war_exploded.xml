@@ -6,9 +6,12 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="SpellingWebApp" />
+          <element id="module-output" name="ApiLimiter" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="SpellingApp" />
+          <element id="library" level="module" name="testng" module-name="SpellingWebApp" />
+          <element id="library" level="project" name="junit:junit:4.12" />
+          <element id="library" level="application" name="com.google.inject:guice:4.1.0" />
         </element>
       </element>
     </root>

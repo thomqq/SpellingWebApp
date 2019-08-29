@@ -36,7 +36,6 @@
     <orderEntry type="library" name="jquery-3.3.1.slim" level="application" />
     <orderEntry type="library" name="popper" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
-    <orderEntry type="library" name="SpellingApp" level="project" />
     <orderEntry type="module-library" scope="TEST">
       <library name="JUnit4">
         <CLASSES>
@@ -58,5 +57,8 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="junit:junit:4.12" level="project" />
+    <orderEntry type="library" name="com.google.inject:guice:4.1.0" level="application" />
+    <orderEntry type="module" module-name="ApiLimiter" />
+    <orderEntry type="module" module-name="SpellingApp" />
   </component>
 </module>
