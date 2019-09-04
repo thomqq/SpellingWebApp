@@ -43,9 +43,9 @@ public class MainController extends javax.servlet.http.HttpServlet {
         List<ModelView> modelViews = new ArrayList<>();
         for (WebController webController : controllers) {
             ModelView modelView = new ModelView();
+            modelViews.add(modelView);
             String action = PathUtil.prepareActionName(request.getServletPath());
             webController.process(action, parameters, controllerContext.getAppSession(), modelView);
-            modelViews.add(modelView);
         }
         putParameterFromModelViewToRequest(modelViews, request);
 

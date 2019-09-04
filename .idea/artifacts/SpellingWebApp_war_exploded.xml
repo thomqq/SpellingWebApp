@@ -7,11 +7,16 @@
         <element id="directory" name="classes">
           <element id="module-output" name="SpellingWebApp" />
           <element id="module-output" name="ApiLimiter" />
+          <element id="module-output" name="SpellingApp" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="module" name="testng" module-name="SpellingWebApp" />
           <element id="library" level="project" name="junit:junit:4.12" />
           <element id="library" level="application" name="com.google.inject:guice:4.1.0" />
+          <element id="library" level="application" name="com.amazonaws:aws-java-sdk-acm:1.11.186" />
+          <element id="library" level="application" name="com.amazonaws:aws-java-sdk-polly:1.11.186" />
+          <element id="library" level="application" name="com.amazonaws:aws-java-sdk-core:1.11.186" />
+          <element id="library" level="application" name="com.google.code.gson:gson:2.8.5" />
         </element>
       </element>
     </root>

@@ -26,11 +26,11 @@ public class ContentWebController implements WebController {
                 modelView.setView( new View("content", "/login.jsp"));
             }
         } else {
-            if( action == "simple") {
+            if( action.equals("simple")) {
                 String sentence[] = parameters.get("sentence");
                 if( sentence != null && sentence.length > 0 ) {
                     String pathToMp3 = PollyAdapter.getMp3ForSentence(sentence[0]);
-                    parameters.put("mp3Path", new String[] {pathToMp3});
+                    modelView.addModel("mp3Path", pathToMp3);
                 }
             }
             modelView.setView( new View("content", "/content.jsp"));
