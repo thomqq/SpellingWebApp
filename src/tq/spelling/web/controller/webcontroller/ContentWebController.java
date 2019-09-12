@@ -1,21 +1,24 @@
 package tq.spelling.web.controller.webcontroller;
 
-import pl.tq.spelling.service.user.User;
+import pl.tq.spelling.service.user.Object;
 import tq.spelling.web.adapters.PollyAdapter;
 import tq.spelling.web.controller.session.AppSession;
 import tq.spelling.web.controller.view.ModelView;
 import tq.spelling.web.controller.view.View;
+import tq.spelling.web.resources.ResourcesMapper;
 
 import java.util.Map;
 
 public class ContentWebController implements WebController {
 
+    public static final String MP3_PATH_KEY = "mp3";
+    public static final String RESOURCES_MAPPER = "resourcesMapper";
     private String login;
     private String password;
 
     @Override
     public void process(String action, Map<String, String[]> parameters, AppSession appSession, ModelView modelView) {
-        User user = (User) appSession.get("user");
+        Object user = (Object) appSession.get("user");
 
         if( user == null ) {
             if (containParameterLoginData(parameters)) {
@@ -30,12 +33,20 @@ public class ContentWebController implements WebController {
                 String sentence[] = parameters.get("sentence");
                 if( sentence != null && sentence.length > 0 ) {
                     String pathToMp3 = PollyAdapter.getMp3ForSentence(sentence[0]);
+                    registerResource(appSession, pathToMp3);
                     modelView.addModel("mp3Path", pathToMp3);
                 }
             }
             modelView.setView( new View("content", "/content.jsp"));
         }
 
+    }
+
+    private void registerResource(AppSession appSession, String pathToMp3) {
+        ResourcesMapper mapper =  (ResourcesMapper) appSession.get(RESOURCES_MAPPER);
+        if( mapper != null ) {
+            mapper.registerPath(MP3_PATH_KEY, pathToMp3);
+        }
     }
 
     private boolean containParameterLoginData(Map<String, String[]> parameters) {
@@ -51,7 +62,7 @@ public class ContentWebController implements WebController {
         return null;
     }
 
-    private pl.tq.spelling.service.user.User createUser() {
-        return new User(1);
+    private Object createUser() {
+        return new Object(1);
     }
 }

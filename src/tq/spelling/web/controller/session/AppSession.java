@@ -1,6 +1,5 @@
 package tq.spelling.web.controller.session;
 
-import pl.tq.spelling.service.user.User;
 
 import java.util.HashMap;
 
@@ -10,7 +9,8 @@ public class AppSession {
     public AppSession() {
     }
 
-    public Object get(String key) {
+    public java.lang.Object get(String key) {
+
         return parameters.get(key);
     }
 
@@ -18,7 +18,7 @@ public class AppSession {
         return parameters.containsKey(key);
     }
 
-    public void put(String key, User value) {
+    public void put(String key, Object value) {
         parameters.put(key, value);
     }
 }

@@ -4,6 +4,7 @@ import tq.spelling.web.controller.view.ModelView;
 import tq.spelling.web.controller.view.View;
 import tq.spelling.web.controller.webcontroller.WebController;
 import tq.spelling.web.controller.webcontroller.WebControllerFactory;
+import tq.spelling.web.resources.ResourcesMapper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,10 +14,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.servlet.annotation.WebServlet(name = "MainController", urlPatterns = {"/index.jsp", "*.act"})
+@javax.servlet.annotation.WebServlet(name = "MainController", urlPatterns = {"/index.jsp", "*.act","*.mp3"})
 public class MainController extends javax.servlet.http.HttpServlet {
 
-    private static final String SESSION_NAVIGATION = "navigation";
+    public static final String SESSION_NAVIGATION = "navigation";
 
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         doProcess(request, response);
@@ -37,6 +38,10 @@ public class MainController extends javax.servlet.http.HttpServlet {
         if (controllerContext == null) {
             controllerContext = createControllerContext();
             request.getSession().setAttribute(SESSION_NAVIGATION, controllerContext);
+        }
+
+        if( !controllerContext.getAppSession().contain("resourcesMapper") ) {
+            controllerContext.getAppSession().put("resourcesMapper", new ResourcesMapper());
         }
 
         List<WebController> controllers = controllerContext.getControllers();

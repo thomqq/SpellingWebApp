@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ControllerContext {
     private List<WebController> controllers = new ArrayList<>();
-    final AppSession appSession = new AppSession();
+    private final AppSession appSession = new AppSession();
     HashMap<String, Object> sessionParameters = new HashMap<>();
 
     public AppSession getAppSession() {
