@@ -3,18 +3,15 @@ package tq.spelling.web.controller;
 import tq.spelling.web.controller.webcontroller.ContentWebController;
 import tq.spelling.web.resources.ResourcesMapper;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.util.stream.Stream;
 
 import static tq.spelling.web.controller.MainController.SESSION_NAVIGATION;
 
@@ -34,35 +31,23 @@ public class StaticServlet extends HttpServlet {
         ResourcesMapper resourcesMapper = (ResourcesMapper)  controllerContext.getAppSession().get(ContentWebController.RESOURCES_MAPPER);
         String path =  resourcesMapper.getPath(ContentWebController.MP3_PATH_KEY);
 
-        ServletOutputStream stream = null;
-        BufferedInputStream buf = null;
-        try{
+        File file = new File(path);
 
-            stream = response.getOutputStream();
-            File mp3 = new File(path);
+        response.setContentType("audio/mpeg");
+        response.addHeader("Content-Disposition", "attachment; filename=" + file.getName());
 
-            response.setContentType("audio/mpeg");
+        response.setContentLength((int) file.length());
+        byte[] bytes =  Files.readAllBytes(file.toPath());
+        ServletOutputStream outputStream = response.getOutputStream();
+        Stream.of(bytes).forEach((x) -> safeWrite(outputStream, x));
 
-            response.addHeader("Content-Disposition","attachment; filename="+"cosik.mp3" );
+    }
 
-            response.setContentLength( (int) mp3.length() );
-
-            FileInputStream input = new FileInputStream(mp3);
-            buf = new BufferedInputStream(input);
-            int readBytes = 0;
-
-            while((readBytes = buf.read()) != -1)
-                stream.write(readBytes);
-
-        } catch (IOException ioe){
-
-            throw new ServletException(ioe.getMessage());
-
-        } finally {
-            if(stream != null)
-                stream.close();
-            if(buf != null)
-                buf.close();
+    private void safeWrite(ServletOutputStream outputStream, byte[] x) {
+        try {
+            outputStream.write(x);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
