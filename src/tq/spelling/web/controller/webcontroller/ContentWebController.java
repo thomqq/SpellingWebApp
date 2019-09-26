@@ -1,6 +1,6 @@
 package tq.spelling.web.controller.webcontroller;
 
-import pl.tq.spelling.service.user.Object;
+import pl.tq.spelling.service.user.User;
 import tq.spelling.web.adapters.PollyAdapter;
 import tq.spelling.web.controller.session.AppSession;
 import tq.spelling.web.controller.view.ModelView;
@@ -18,7 +18,7 @@ public class ContentWebController implements WebController {
 
     @Override
     public void process(String action, Map<String, String[]> parameters, AppSession appSession, ModelView modelView) {
-        Object user = (Object) appSession.get("user");
+        User user = (User) appSession.get("user");
 
         if( user == null ) {
             if (containParameterLoginData(parameters)) {
@@ -62,7 +62,7 @@ public class ContentWebController implements WebController {
         return null;
     }
 
-    private Object createUser() {
-        return new Object(1);
+    private User createUser() {
+        return new User(1);
     }
 }

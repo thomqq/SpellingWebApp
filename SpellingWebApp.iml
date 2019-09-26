@@ -60,5 +60,6 @@
     <orderEntry type="library" name="com.google.inject:guice:4.1.0" level="application" />
     <orderEntry type="module" module-name="ApiLimiter" />
     <orderEntry type="module" module-name="SpellingApp" />
+    <orderEntry type="library" name="javax.servlet:jstl:1.2" level="project" />
   </component>
 </module>

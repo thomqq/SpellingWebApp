@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@javax.servlet.annotation.WebServlet(name = "MainController", urlPatterns = {"/index.jsp", "*.act","*.mp3"})
+@javax.servlet.annotation.WebServlet(name = "MainController", urlPatterns = {"/index.jsp", "*.act"})
 public class MainController extends javax.servlet.http.HttpServlet {
 
     public static final String SESSION_NAVIGATION = "navigation";

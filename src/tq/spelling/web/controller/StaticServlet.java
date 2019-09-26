@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 
 import static tq.spelling.web.controller.MainController.SESSION_NAVIGATION;
 
-@javax.servlet.annotation.WebServlet(name = "StaticServlet",urlPatterns = "*.mp2")
+@javax.servlet.annotation.WebServlet(name = "StaticServlet",urlPatterns = "*.mp3")
 public class StaticServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doProcess(request, response);
